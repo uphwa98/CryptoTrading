@@ -201,7 +201,11 @@ public class LocalService extends Service {
             mIsStarted = true;
             printLog("start HandlerThread : " + currency);
 
-            mMyTrade = new MyTrade(currency);
+            String connectKey = getResources().getString(R.string.connect_key);
+            String secretKey = getResources().getString(R.string.secret_key);
+            Log.d(TAG, "connectKey: " + connectKey +", secretKey: " + secretKey);
+
+            mMyTrade = new MyTrade(currency, connectKey, secretKey);
             mThreadHandler.sendEmptyMessage(CMD_INIT);
         } else {
             Log.w(TAG, "Thread already started...");

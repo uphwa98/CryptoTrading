@@ -138,3 +138,6 @@ fabric.properties
 gradle/
 gradlew
 gradlew.bat
+
+# api key
+keys.xml

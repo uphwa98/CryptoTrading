@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        1. make keys.xml file (.gitignore includes "keys.xml")
+        2. add string entries named "connect_key", "secret_key"
+     -->
+    <string name="connect_key_temp">qwer1234qwer1234qwer1234qwer1234</string>
+    <string name="secret_key_temp">qwer1234qwer1234qwer1234qwer1234</string>
+</resources>
