@@ -64,15 +64,18 @@ public class MyTrade {
             }
 
             if (currentPrice < mSellRatio * mBuyingPrice) {
-                Price p = new Price(-1f, 0, mBuyingPrice);
+                Log.i(TAG, "It's time to sell : " + currentPrice + " buying at : " + mBuyingPrice);
+                Price p = new Price(currentPrice, 0, mBuyingPrice);
                 p.setSellNow();
                 return p;
             }
 
             if (currentPrice < 0.98 * mMaxPrice) {
                 if (currentPrice > 1.02 * mBuyingPrice) {
-//                    String result = sellNow(mCurrency, mTotalBalance);
-//                    return new Price(-1f, 0, mBuyingPrice);
+                    Log.i(TAG, "Down 2% from max : " + mMaxPrice + " to : " + currentPrice);
+                    Price p = new Price(currentPrice, 0, mBuyingPrice);
+                    p.setSellNow();
+                    return p;
                 }
             }
         }
