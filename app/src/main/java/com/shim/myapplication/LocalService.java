@@ -132,10 +132,13 @@ public class LocalService extends Service {
         mSellWithoutConfirm = flag;
     }
 
-    public void restartLoop() {
-        mMyTrade.setSellRatio(50F);
+    public Float restartLoop() {
+        Float stopLossRatio = 50F;
 
+        mMyTrade.setSellRatio(stopLossRatio);
         mThreadHandler.sendEmptyMessageDelayed(CMD_RUN_LOOP, 1000L);
+
+        return stopLossRatio;
     }
 
     public void start(String currency) {

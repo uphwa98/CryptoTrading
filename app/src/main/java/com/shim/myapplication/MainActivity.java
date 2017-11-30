@@ -266,7 +266,8 @@ public class MainActivity extends Activity implements SellNowDialogFragment.Noti
     public void onDialogNegativeClick(DialogFragment dialog) {
         Log.v(TAG, "sell now cancel");
 
-        mBoundService.restartLoop();
+        Float newStopLossRatio = mBoundService.restartLoop();
+        mButtonSellLimit.setText("stop loss:" + String.valueOf(newStopLossRatio) + "%");
     }
 
     public static class MyUiHandler extends Handler {
