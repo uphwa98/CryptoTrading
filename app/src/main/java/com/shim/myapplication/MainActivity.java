@@ -265,6 +265,8 @@ public class MainActivity extends Activity implements SellNowDialogFragment.Noti
     @Override
     public void onDialogNegativeClick(DialogFragment dialog) {
         Log.v(TAG, "sell now cancel");
+
+        mBoundService.restartLoop();
     }
 
     public static class MyUiHandler extends Handler {

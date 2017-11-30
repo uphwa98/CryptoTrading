@@ -132,6 +132,12 @@ public class LocalService extends Service {
         mSellWithoutConfirm = flag;
     }
 
+    public void restartLoop() {
+        mMyTrade.setSellRatio(50F);
+
+        mThreadHandler.sendEmptyMessageDelayed(CMD_RUN_LOOP, 1000L);
+    }
+
     public void start(String currency) {
         if (!mIsStarted) {
             Log.i(TAG, "Thread start...");
@@ -167,6 +173,7 @@ public class LocalService extends Service {
                                         " max : " + result.maxPrice +
                                         "\ndiff : " + result.getDiff() + " ratio : " + result.getRatio() + "%" +
                                         "\nresult : " + Math.floor(result.getDiff() * mMyTrade.getTotalBalance()));
+
                                 mThreadHandler.sendEmptyMessageDelayed(CMD_RUN_LOOP, mReqInterval * 1000L);
                             }
                             break;
@@ -181,6 +188,7 @@ public class LocalService extends Service {
                                 notifyOrderbookResult(orderbook);
                             }
 
+                            mThreadHandler.sendEmptyMessageDelayed(CMD_GET_ORDERBOOK, 5000L);
                             break;
                         default:
                             break;
