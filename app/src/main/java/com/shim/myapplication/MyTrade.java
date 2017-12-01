@@ -49,7 +49,7 @@ public class MyTrade {
             return null;
         }
 
-        if (mTotalBalance < 0.2) {
+        if (mTotalBalance < 0.0001) {
             Log.i(TAG, "Nothing to sell");
             return null;
         }
