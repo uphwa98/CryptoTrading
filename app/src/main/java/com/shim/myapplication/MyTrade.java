@@ -13,8 +13,7 @@ import java.util.HashMap;
 public class MyTrade {
     private final String TAG = "DEBUG_" + this.getClass().getSimpleName();
 
-    private Api_Client mApi = new Api_Client("",
-            "");
+    private Api_Client mApi;
 
     private int mCount;
 
@@ -24,8 +23,9 @@ public class MyTrade {
     private Float mTotalBalance;
     private double mMaxPrice;
 
-    public MyTrade(String currency) {
+    public MyTrade(String currency, String connectKey, String secretKey) {
         mCurrency = currency;
+        mApi = new Api_Client(connectKey, secretKey);
     }
 
     public void setSellRatio(Float sellLimit) {
