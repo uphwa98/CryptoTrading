@@ -127,6 +127,11 @@ public class LocalService extends Service {
         return mSellLimit;
     }
 
+    public boolean getSellWithOutConfirm() {
+        Log.i(TAG, "getSellWithOutConfirm() : " + mSellWithoutConfirm);
+        return mSellWithoutConfirm;
+    }
+
     public void setSellWithOutConfirm(boolean flag) {
         Log.i(TAG, "setSellWithOutConfirm() : " + flag);
         mSellWithoutConfirm = flag;
@@ -203,7 +208,7 @@ public class LocalService extends Service {
 
             String connectKey = getResources().getString(R.string.connect_key);
             String secretKey = getResources().getString(R.string.secret_key);
-            Log.d(TAG, "connectKey: " + connectKey +", secretKey: " + secretKey);
+            Log.d(TAG, "connectKey: " + connectKey + ", secretKey: " + secretKey);
 
             mMyTrade = new MyTrade(currency, connectKey, secretKey);
             mThreadHandler.sendEmptyMessage(CMD_INIT);

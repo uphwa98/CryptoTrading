@@ -100,6 +100,7 @@ public class MainActivity extends Activity implements SellNowDialogFragment.Noti
         mNoPopupCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Log.v(TAG, "onCheckedChanged() : " + isChecked);
                 if (buttonView.getId() == R.id.checkBox) {
                     if (isChecked) {
                         mBoundService.setSellWithOutConfirm(true);
@@ -210,6 +211,8 @@ public class MainActivity extends Activity implements SellNowDialogFragment.Noti
             Toast.makeText(MainActivity.this, "Service connected", Toast.LENGTH_SHORT).show();
 
             mBoundService.setMainHandler(mUiHandler);
+
+            mNoPopupCheckBox.setChecked(mBoundService.getSellWithOutConfirm());
 
             if (mIsBoundByStart) {
                 mBoundService.start(mCurrency);
