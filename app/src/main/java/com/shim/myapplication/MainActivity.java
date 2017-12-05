@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
 
-public class MainActivity extends Activity implements SellNowDialogFragment.NoticeDialogListener {
+public class MainActivity extends Activity implements SellNowDialogFragment.NoticeDialogListener, BuyNowDialogFragment.NoticeDialogListener {
     private final String TAG = "DEBUG_" + this.getClass().getSimpleName();
 
     private Context mAppContext;
@@ -38,6 +38,7 @@ public class MainActivity extends Activity implements SellNowDialogFragment.Noti
     private Button mButtonStart;
     private Button mButtonStop;
     private Button mSellNow;
+    private Button mBuyNow;
     private Button mOrderbook;
     private CheckBox mNoPopupCheckBox;
 
@@ -161,6 +162,14 @@ public class MainActivity extends Activity implements SellNowDialogFragment.Noti
             }
         });
 
+        mBuyNow = findViewById(R.id.button12);
+        mBuyNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new BuyNowDialogFragment().show(getFragmentManager(), "buy_now");
+            }
+        });
+
         mSellNow = findViewById(R.id.button8);
         mSellNow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -259,9 +268,16 @@ public class MainActivity extends Activity implements SellNowDialogFragment.Noti
 
     @Override
     public void onDialogPositiveClick(DialogFragment dialog) {
-        Log.v(TAG, "sell now ok");
-        if (mIsBound) {
-            mBoundService.sellNow();
+        if (dialog instanceof BuyNowDialogFragment) {
+            Log.v(TAG, "buy now ok");
+            if (mIsBound) {
+                mBoundService.buyNow();
+            }
+        } else {
+            Log.v(TAG, "sell now ok");
+            if (mIsBound) {
+                mBoundService.sellNow();
+            }
         }
     }
 

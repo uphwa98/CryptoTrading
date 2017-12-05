@@ -94,7 +94,7 @@ public class MyTrade {
     public int buyNow(int count) {
         final HashMap<String, String> rgParams = new HashMap<>();
 
-        rgParams.put("units", "1");
+        rgParams.put("units", "0.01");
         rgParams.put("currency", mCurrency);
 
         try {

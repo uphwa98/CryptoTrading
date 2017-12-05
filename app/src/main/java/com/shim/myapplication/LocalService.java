@@ -23,8 +23,9 @@ public class LocalService extends Service {
 
     private final int CMD_INIT = 0;
     private final int CMD_RUN_LOOP = 1;
-    private final int CMD_SELL_NOW = 2;
-    private final int CMD_GET_ORDERBOOK = 3;
+    private final int CMD_BUY_NOW = 2;
+    private final int CMD_SELL_NOW = 3;
+    private final int CMD_GET_ORDERBOOK = 4;
 
     private MyTrade mMyTrade;
     private Handler mMainHandler;
@@ -185,6 +186,11 @@ public class LocalService extends Service {
                                 mThreadHandler.sendEmptyMessageDelayed(CMD_RUN_LOOP, mReqInterval * 1000L);
                             }
                             break;
+                        case CMD_BUY_NOW:
+                            if (mMyTrade != null) {
+                                mMyTrade.buyNow(0);
+                            }
+                            break;
                         case CMD_SELL_NOW:
                             if (mMyTrade != null) {
                                 mMyTrade.sellNow();
@@ -225,6 +231,12 @@ public class LocalService extends Service {
             printLog("stop HandlerThread");
         } else {
             Log.w(TAG, "Thread not started...");
+        }
+    }
+
+    public void buyNow() {
+        if (mThreadHandler != null) {
+            mThreadHandler.sendEmptyMessage(CMD_BUY_NOW);
         }
     }
 
