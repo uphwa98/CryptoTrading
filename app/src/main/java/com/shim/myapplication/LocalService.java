@@ -34,6 +34,8 @@ public class LocalService extends Service {
     private int mReqInterval = 5;
     private Float mSellLimit = 2F;
     private int mSellLimitIndex = 0;
+    private Float mSellLimitForMaxPrice = 2F;
+    private int mSellLimitForMaxPriceIndex = 0;
     private static Float[] sSellLimitArray = {2F, 3F, 5F, 10F};
 
     private boolean mSellWithoutConfirm;
@@ -126,6 +128,20 @@ public class LocalService extends Service {
             mMyTrade.setSellRatio(mSellLimit);
         }
         return mSellLimit;
+    }
+
+    public Float setSellLimitForMaxPrice() {
+        if (mMyTrade != null) {
+            mSellLimitForMaxPrice = sSellLimitArray[mSellLimitForMaxPriceIndex];
+            mSellLimitForMaxPriceIndex++;
+
+            if (mSellLimitForMaxPriceIndex == sSellLimitArray.length) {
+                mSellLimitForMaxPriceIndex = 0;
+            }
+
+            mMyTrade.setSellRatioForMaxPrice(mSellLimitForMaxPrice);
+        }
+        return mSellLimitForMaxPrice;
     }
 
     public boolean getSellWithOutConfirm() {

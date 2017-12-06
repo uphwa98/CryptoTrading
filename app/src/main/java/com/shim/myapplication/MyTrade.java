@@ -19,6 +19,7 @@ public class MyTrade {
 
     private String mCurrency;
     private Float mSellRatio = 0.9F; // 10%
+    private Float mSellRatioForMaxPrice = 0.98F;  // 2%
     private double mBuyingPrice;
     private Float mTotalBalance;
     private double mMaxPrice;
@@ -30,6 +31,10 @@ public class MyTrade {
 
     public void setSellRatio(Float sellLimit) {
         mSellRatio = 1 - (sellLimit / 100F);
+    }
+
+    public void setSellRatioForMaxPrice(Float sellRatioForMaxPrice) {
+        mSellRatioForMaxPrice = 1 - (sellRatioForMaxPrice / 100F);
     }
 
     public Float getTotalBalance() {
@@ -70,7 +75,8 @@ public class MyTrade {
                 return p;
             }
 
-            if (currentPrice < 0.98 * mMaxPrice) {
+            Log.d(TAG, "mSellRatioForMaxPrice. " + mSellRatioForMaxPrice);
+            if (currentPrice < mSellRatioForMaxPrice * mMaxPrice) {
                 if (currentPrice > 1.02 * mBuyingPrice) {
                     Log.i(TAG, "Down 2% from max : " + mMaxPrice + " to : " + currentPrice);
                     Price p = new Price(currentPrice, 0, mBuyingPrice);
