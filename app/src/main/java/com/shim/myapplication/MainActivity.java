@@ -35,6 +35,7 @@ public class MainActivity extends Activity implements SellNowDialogFragment.Noti
     private Button mButtonLTC;
     private Button mButtonInterval;
     private Button mButtonSellLimit;
+    private Button mButtonSellLimitForMaxPrice;
     private Button mButtonStart;
     private Button mButtonStop;
     private Button mSellNow;
@@ -130,6 +131,17 @@ public class MainActivity extends Activity implements SellNowDialogFragment.Noti
                 if (mIsBound) {
                     Float limit = mBoundService.setSellLimit();
                     mButtonSellLimit.setText("stop loss:" + String.valueOf(limit) + "%");
+                }
+            }
+        });
+
+        mButtonSellLimitForMaxPrice = findViewById(R.id.button13);
+        mButtonSellLimitForMaxPrice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mIsBound) {
+                    Float limit = mBoundService.setSellLimitForMaxPrice();
+                    mButtonSellLimitForMaxPrice.setText("max loss:" + String.valueOf(limit) + "%");
                 }
             }
         });
