@@ -223,6 +223,9 @@ public class MainActivity extends Activity implements SellNowDialogFragment.Noti
 
             mNoPopupCheckBox.setChecked(mBoundService.getSellWithOutConfirm());
 
+            String tradeUnitStr = Float.toString(Util.getTradingUnit(mCurrency));
+            mBuyNow.setText("Buy " + tradeUnitStr);
+
             if (mIsBoundByStart) {
                 mBoundService.start(mCurrency);
             }
