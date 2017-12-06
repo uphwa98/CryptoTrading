@@ -94,13 +94,14 @@ public class MyTrade {
     public int buyNow(int count) {
         final HashMap<String, String> rgParams = new HashMap<>();
 
-        rgParams.put("units", "0.01");
+        float tradeUnit = Util.getTradingUnit(mCurrency);
+        rgParams.put("units", Float.toString(tradeUnit));
         rgParams.put("currency", mCurrency);
 
         try {
             String result = mApi.callApi("/trade/market_buy", rgParams);
             JSONObject json = new JSONObject(result);
-            Log.v(TAG, "sell result : " + json);
+            Log.v(TAG, "buy result : " + json);
         } catch (Exception e) {
             Log.d(TAG, "failed : " + e.getMessage());
         }
