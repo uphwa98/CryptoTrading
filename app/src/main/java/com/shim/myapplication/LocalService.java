@@ -204,7 +204,8 @@ public class LocalService extends Service {
                             break;
                         case CMD_BUY_NOW:
                             if (mMyTrade != null) {
-                                mMyTrade.buyNow(0);
+                                String buyResult = mMyTrade.buyNow(0);
+                                printLog("buy : " + buyResult);
                             }
                             break;
                         case CMD_SELL_NOW:

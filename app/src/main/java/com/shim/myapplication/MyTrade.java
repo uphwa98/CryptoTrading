@@ -97,7 +97,7 @@ public class MyTrade {
         return result;
     }
 
-    public int buyNow(int count) {
+    public String buyNow(int count) {
         final HashMap<String, String> rgParams = new HashMap<>();
 
         float tradeUnit = Util.getTradingUnit(mCurrency);
@@ -108,11 +108,17 @@ public class MyTrade {
             String result = mApi.callApi("/trade/market_buy", rgParams);
             JSONObject json = new JSONObject(result);
             Log.v(TAG, "buy result : " + json);
+            String status = json.getString("status");
+            if ("0000".equals(status)) {
+                mTotalBalance = getMyBalance(mCurrency);
+                return "buy OK";
+            } else {
+                return json.getString("message");
+            }
         } catch (Exception e) {
             Log.d(TAG, "failed : " + e.getMessage());
+            return "Exception";
         }
-
-        return 0;
     }
 
     private Float getMyBalance(String reqCurrency) {
