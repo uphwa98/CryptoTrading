@@ -186,7 +186,7 @@ public class LocalService extends Service {
                             } else if (result.isSellNow()) {
                                 printLog("Time to sell");
                                 if (mSellWithoutConfirm) {
-                                    mMyTrade.sellNow();
+                                    mMyTrade.sellNow(0);
                                 } else {
                                     Message message = Message.obtain(mMainHandler, 3);
                                     message.sendToTarget();
@@ -210,7 +210,8 @@ public class LocalService extends Service {
                             break;
                         case CMD_SELL_NOW:
                             if (mMyTrade != null) {
-                                mMyTrade.sellNow();
+                                float units = (float)msg.obj;
+                                mMyTrade.sellNow(units);
                             }
                             break;
                         case CMD_GET_ORDERBOOK:
@@ -257,9 +258,12 @@ public class LocalService extends Service {
         }
     }
 
-    public void sellNow() {
+    public void sellNow(float unit) {
         if (mThreadHandler != null) {
-            mThreadHandler.sendEmptyMessage(CMD_SELL_NOW);
+            Message msg = Message.obtain();
+            msg.what = CMD_SELL_NOW;
+            msg.obj = unit;
+            mThreadHandler.sendMessage(msg);
         }
     }
 

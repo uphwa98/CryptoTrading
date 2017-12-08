@@ -89,8 +89,13 @@ public class MyTrade {
         return new Price(currentPrice, mMaxPrice, mBuyingPrice);
     }
 
-    public String sellNow() {
-        String result = sellNow(mCurrency, mTotalBalance);
+    public String sellNow(float units) {
+        String result;
+        if (units <= 0) {
+            result = sellNow(mCurrency, mTotalBalance);
+        } else {
+            result = sellNow(mCurrency, units);
+        }
 
         mTotalBalance = getMyBalance(mCurrency);
 

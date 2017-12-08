@@ -39,6 +39,7 @@ public class MainActivity extends Activity implements SellNowDialogFragment.Noti
     private Button mButtonStart;
     private Button mButtonStop;
     private Button mSellNow;
+    private Button mSellPart;
     private Button mBuyNow;
     private Button mOrderbook;
     private CheckBox mNoPopupCheckBox;
@@ -190,6 +191,16 @@ public class MainActivity extends Activity implements SellNowDialogFragment.Noti
             }
         });
 
+        mSellPart = findViewById(R.id.button14);
+        mSellPart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mIsBound) {
+                    mBoundService.sellNow(0.01001F);
+                }
+            }
+        });
+
         mOrderbook = findViewById(R.id.button);
         mOrderbook.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -291,7 +302,7 @@ public class MainActivity extends Activity implements SellNowDialogFragment.Noti
         } else {
             Log.v(TAG, "sell now ok");
             if (mIsBound) {
-                mBoundService.sellNow();
+                mBoundService.sellNow(0);
             }
         }
     }
