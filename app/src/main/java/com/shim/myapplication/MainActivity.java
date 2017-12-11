@@ -285,6 +285,11 @@ public class MainActivity extends Activity implements SellNowDialogFragment.Noti
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long l) {
         mCurrency = (String)parent.getItemAtPosition(pos);
         Log.v(TAG, "onItemSelected : " + mCurrency);
+
+        if (mIsBound) {
+            mBoundService.stop();
+            mBoundService.start(mCurrency);
+        }
     }
 
     @Override
