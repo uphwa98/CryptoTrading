@@ -126,6 +126,28 @@ public class MyTrade {
         }
     }
 
+    public String getAccountBalance() {
+        HashMap<String, String> rgParams = new HashMap<>();
+        rgParams.put("currency", mCurrency);
+
+        try {
+            String result = mApi.callApi("/info/account", rgParams);
+
+            JSONObject json = new JSONObject(result);
+            Log.v(TAG, "getAccountBalance result : " + json);
+            String status = json.getString("status");
+            if ("0000".equals(status)) {
+                JSONObject data = json.getJSONObject("data");
+                String balance = data.getString("balance");
+                return balance;
+            } else {
+                return "";
+            }
+        } catch (Exception e) {
+            return "getAccountBalance Exception";
+        }
+    }
+
     private Float getMyBalance(String reqCurrency) {
         HashMap<String, String> rgParams = new HashMap<>();
         rgParams.put("currency", reqCurrency);
