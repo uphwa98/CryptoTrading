@@ -72,23 +72,23 @@ public class Api_Client {
 			request = new HttpRequest(strHost, "POST");
 			request.readTimeout(10000);
 	
-			System.out.println("POST ==> " + request.url());
+//			System.out.println("POST ==> " + request.url());
 	
 			if (httpHeaders != null && !httpHeaders.isEmpty()) {
 			    httpHeaders.put("api-client-type", "2");
 			    request.headers(httpHeaders);
-			    System.out.println(httpHeaders.toString());
+//			    System.out.println(httpHeaders.toString());
 			}
 			if (rgParams != null && !rgParams.isEmpty()) {
 			    request.form(rgParams);
-			    System.out.println(rgParams.toString());
+//			    System.out.println(rgParams.toString());
 			}
 		    } else {
 			request = HttpRequest.get(strHost
 				+ Util.mapToQueryString(rgParams));
 			request.readTimeout(10000);
 	
-			System.out.println("Response was: " + response);
+//			System.out.println("Response was: " + response);
 		    }
 	
 		    if (request.ok()) {
@@ -137,7 +137,7 @@ public class Api_Client {
 		strData = strData.substring(0, strData.length()-1);
 	
 	
-		System.out.println("1 : " + strData);
+//		System.out.println("1 : " + strData);
 		
 		strData = encodeURIComponent(strData);
 		
@@ -149,8 +149,8 @@ public class Api_Client {
 		
         String encoded = asHex(hmacSha512(str, apiSecret));
 		
-		System.out.println("strData was: " + str);
-		System.out.println("apiSecret was: " + apiSecret);
+//		System.out.println("strData was: " + str);
+//		System.out.println("apiSecret was: " + apiSecret);
 		array.put("Api-Key", apiKey);
 		array.put("Api-Sign", encoded);
 		array.put("Api-Nonce", String.valueOf(nNonce));
@@ -213,7 +213,7 @@ public class Api_Client {
 			result = new ObjectMapper().readValue(rgResultDecode,
 				HashMap.class);
 	
-			System.out.println(result.get("status"));
+//			System.out.println(result.get("status"));
 		    } catch (IOException e) {
 			e.printStackTrace();
 		    }

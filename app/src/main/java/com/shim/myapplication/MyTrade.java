@@ -207,10 +207,9 @@ public class MyTrade {
             JSONObject json = new JSONObject(result);
             String status = json.getString("status");
             if ("0000".equals(status)) {
-                Log.v(TAG, "getCurrentPrice result : " + json);
                 JSONObject data = json.getJSONObject("data");
                 String buy_price = data.getString("buy_price");
-
+                Log.v(TAG, "getCurrentPrice result : " + buy_price);
                 return Float.valueOf(buy_price);
             } else {
                 return 0f;
