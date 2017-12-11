@@ -211,7 +211,10 @@ public class LocalService extends Service {
                         case CMD_SELL_NOW:
                             if (mMyTrade != null) {
                                 float units = (float)msg.obj;
-                                mMyTrade.sellNow(units);
+                                String sellResult = mMyTrade.sellNow(units);
+                                printLog("sell : " + sellResult);
+
+                                mThreadHandler.sendEmptyMessageDelayed(CMD_RUN_LOOP, 2000L);
                             }
                             break;
                         case CMD_GET_ORDERBOOK:
@@ -260,6 +263,8 @@ public class LocalService extends Service {
 
     public void sellNow(float unit) {
         if (mThreadHandler != null) {
+            mThreadHandler.removeMessages(CMD_RUN_LOOP);
+
             Message msg = Message.obtain();
             msg.what = CMD_SELL_NOW;
             msg.obj = unit;
