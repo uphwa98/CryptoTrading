@@ -53,6 +53,8 @@ public class MainActivity extends Activity implements SellNowDialogFragment.Noti
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Log.v(TAG, "onCreate()");
+
         mAppContext = getApplicationContext();
         mTextView = findViewById(R.id.textView);
         mTextViewBuy = findViewById(R.id.textView2);
@@ -283,8 +285,15 @@ public class MainActivity extends Activity implements SellNowDialogFragment.Noti
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long l) {
-        mCurrency = (String)parent.getItemAtPosition(pos);
-        Log.v(TAG, "onItemSelected : " + mCurrency);
+        String newCurrency = (String)parent.getItemAtPosition(pos);
+        Log.v(TAG, "onItemSelected : " + newCurrency);
+
+        if (newCurrency.equals(mCurrency)) {
+            Log.v(TAG, "Nothing to do");
+            return;
+        }
+
+        mCurrency = newCurrency;
 
         if (mIsBound) {
             mBoundService.stop();
