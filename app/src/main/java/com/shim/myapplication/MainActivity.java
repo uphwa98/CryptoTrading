@@ -12,27 +12,27 @@ import android.os.IBinder;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
 
-public class MainActivity extends Activity implements SellNowDialogFragment.NoticeDialogListener, BuyNowDialogFragment.NoticeDialogListener {
+public class MainActivity extends Activity implements SellNowDialogFragment.NoticeDialogListener,
+        BuyNowDialogFragment.NoticeDialogListener,
+        AdapterView.OnItemSelectedListener {
     private final String TAG = "DEBUG_" + this.getClass().getSimpleName();
 
     private Context mAppContext;
     private TextView mTextView;
     private TextView mTextViewBuy;
     private TextView mTextViewSell;
-    private Button mButtonBTC;
-    private Button mButtonBCH;
-    private Button mButtonETH;
-    private Button mButtonDASH;
-    private Button mButtonETC;
-    private Button mButtonLTC;
+
     private Button mButtonInterval;
     private Button mButtonSellLimit;
     private Button mButtonSellLimitForMaxPrice;
@@ -57,48 +57,13 @@ public class MainActivity extends Activity implements SellNowDialogFragment.Noti
         mTextView = findViewById(R.id.textView);
         mTextViewBuy = findViewById(R.id.textView2);
         mTextViewSell = findViewById(R.id.textView3);
-        mButtonBTC = findViewById(R.id.button1);
-        mButtonBTC.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mCurrency = "BTC";
-            }
-        });
-        mButtonBCH = findViewById(R.id.button2);
-        mButtonBCH.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mCurrency = "BCH";
-            }
-        });
-        mButtonETH = findViewById(R.id.button3);
-        mButtonETH.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mCurrency = "ETH";
-            }
-        });
-        mButtonDASH = findViewById(R.id.button4);
-        mButtonDASH.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mCurrency = "DASH";
-            }
-        });
-        mButtonETC = findViewById(R.id.button9);
-        mButtonETC.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mCurrency = "ETC";
-            }
-        });
-        mButtonLTC = findViewById(R.id.button10);
-        mButtonLTC.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mCurrency = "LTC";
-            }
-        });
+
+        Spinner spinner = findViewById(R.id.currency_spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.currency_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
         mNoPopupCheckBox = findViewById(R.id.checkBox);
         mNoPopupCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -313,6 +278,15 @@ public class MainActivity extends Activity implements SellNowDialogFragment.Noti
 
         Float newStopLossRatio = mBoundService.restartLoop();
         mButtonSellLimit.setText("stop loss:" + String.valueOf(newStopLossRatio) + "%");
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int pos, long l) {
+        mCurrency = (String)parent.getItemAtPosition(pos);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
     }
 
     public static class MyUiHandler extends Handler {

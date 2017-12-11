@@ -4,4 +4,14 @@
     <string name="sell_confirm">Sell Now?</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
+
+    <string-array name="currency_array">
+        <item>BTC</item>
+        <item>ETH</item>
+        <item>DASH</item>
+        <item>BCH</item>
+        <item>LTC</item>
+        <item>ETC</item>
+        <item>BTG</item>
+    </string-array>
 </resources>
