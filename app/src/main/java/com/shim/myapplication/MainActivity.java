@@ -63,6 +63,7 @@ public class MainActivity extends Activity implements SellNowDialogFragment.Noti
                 R.array.currency_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
 
         mNoPopupCheckBox = findViewById(R.id.checkBox);
         mNoPopupCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -283,6 +284,7 @@ public class MainActivity extends Activity implements SellNowDialogFragment.Noti
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long l) {
         mCurrency = (String)parent.getItemAtPosition(pos);
+        Log.v(TAG, "onItemSelected : " + mCurrency);
     }
 
     @Override
