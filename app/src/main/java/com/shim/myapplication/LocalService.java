@@ -103,6 +103,14 @@ public class LocalService extends Service {
         return mBinder;
     }
 
+    public String getCurrency() {
+        if (mMyTrade != null) {
+            return mMyTrade.getCurrency();
+        } else {
+            return "BTC";
+        }
+    }
+
     public void setMainHandler(Handler handler) {
         mMainHandler = handler;
     }

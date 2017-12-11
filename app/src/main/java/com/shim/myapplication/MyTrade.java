@@ -29,6 +29,10 @@ public class MyTrade {
         mApi = new Api_Client(connectKey, secretKey);
     }
 
+    public String getCurrency() {
+        return mCurrency;
+    }
+
     public void setSellRatio(Float sellLimit) {
         mSellRatio = 1 - (sellLimit / 100F);
     }
@@ -258,15 +262,15 @@ public class MyTrade {
 
                 JSONArray bids = data.getJSONArray("bids");
                 int length = bids.length();
-                for (int i = 0; i < length; i++) {
-                    Log.v(TAG, "bids " + i + " " + bids.getString(i));
-                }
+//                for (int i = 0; i < length; i++) {
+//                    Log.v(TAG, "bids " + i + " " + bids.getString(i));
+//                }
 
                 JSONArray asks = data.getJSONArray("asks");
                 length = asks.length();
-                for (int i = 0; i < length; i++) {
-                    Log.v(TAG, "bids " + i + " " + asks.getString(i));
-                }
+//                for (int i = 0; i < length; i++) {
+//                    Log.v(TAG, "asks " + i + " " + asks.getString(i));
+//                }
 
                 return result;
             } else {

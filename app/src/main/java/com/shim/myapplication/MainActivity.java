@@ -288,17 +288,18 @@ public class MainActivity extends Activity implements SellNowDialogFragment.Noti
         String newCurrency = (String)parent.getItemAtPosition(pos);
         Log.v(TAG, "onItemSelected : " + newCurrency);
 
-        if (newCurrency.equals(mCurrency)) {
-            Log.v(TAG, "Nothing to do");
-            return;
-        }
-
+        // comment temporarily
+//        if (newCurrency.equals(mCurrency)) {
+//            Log.v(TAG, "Nothing to do");
+//            return;
+//        }
+//
         mCurrency = newCurrency;
-
-        if (mIsBound) {
-            mBoundService.stop();
-            mBoundService.start(mCurrency);
-        }
+//
+//        if (mIsBound) {
+//            mBoundService.stop();
+//            mBoundService.start(mCurrency);
+//        }
     }
 
     @Override
