@@ -174,15 +174,15 @@ public class MainActivity extends Activity implements SellNowDialogFragment.Noti
             }
         });
 
-        mOrderbook = findViewById(R.id.button);
-        mOrderbook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mIsBound) {
-                    mBoundService.getOrderbook(callback);
-                }
-            }
-        });
+//        mOrderbook = findViewById(R.id.button);
+//        mOrderbook.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (mIsBound) {
+//                    mBoundService.getOrderbook(callback);
+//                }
+//            }
+//        });
 
         mAppContext.startService(new Intent(mAppContext, LocalService.class));
 
@@ -194,6 +194,7 @@ public class MainActivity extends Activity implements SellNowDialogFragment.Noti
         super.onDestroy();
         Log.v(TAG, "onDestroy()");
         if (mIsBound) {
+            mBoundService.stopOrderbook();
             doUnbindService();
         }
     }
@@ -216,6 +217,7 @@ public class MainActivity extends Activity implements SellNowDialogFragment.Noti
             Toast.makeText(MainActivity.this, "Service connected", Toast.LENGTH_SHORT).show();
 
             mBoundService.setMainHandler(mUiHandler);
+            mBoundService.setOrderbookCallback(callback);
 
             mNoPopupCheckBox.setChecked(mBoundService.getSellWithOutConfirm());
 

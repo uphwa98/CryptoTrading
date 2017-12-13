@@ -209,6 +209,7 @@ public class LocalService extends Service {
 
                                 mThreadHandler.sendEmptyMessageDelayed(CMD_RUN_LOOP, mReqInterval * 1000L);
                             }
+                            mThreadHandler.sendEmptyMessageDelayed(CMD_GET_ORDERBOOK, 1000L);
                             break;
                         case CMD_BUY_NOW:
                             if (mMyTrade != null) {
@@ -234,7 +235,7 @@ public class LocalService extends Service {
                                 notifyOrderbookResult(orderbook);
                             }
 
-                            mThreadHandler.sendEmptyMessageDelayed(CMD_GET_ORDERBOOK, 5000L);
+                            mThreadHandler.sendEmptyMessageDelayed(CMD_GET_ORDERBOOK, 1000L);
                             break;
                         default:
                             break;
@@ -288,11 +289,13 @@ public class LocalService extends Service {
         }
     }
 
-    public void getOrderbook(INotifyOrderbook orderbookResult) {
+    public void setOrderbookCallback(INotifyOrderbook orderbookResult) {
         mOrderbookResult = orderbookResult;
+    }
 
+    public void stopOrderbook() {
         if (mThreadHandler != null) {
-            mThreadHandler.sendEmptyMessage(CMD_GET_ORDERBOOK);
+            mThreadHandler.removeMessages(CMD_GET_ORDERBOOK);
         }
     }
 
