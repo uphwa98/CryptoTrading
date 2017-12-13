@@ -106,11 +106,11 @@ public class MyTrade {
         return result;
     }
 
-    public String buyNow(int count) {
+    public String buyNow(float units) {
         final HashMap<String, String> rgParams = new HashMap<>();
 
-        float tradeUnit = Util.getTradingUnit(mCurrency);
-        rgParams.put("units", Float.toString(tradeUnit));
+//        float tradeUnit = Util.getTradingUnit(mCurrency);
+        rgParams.put("units", Float.toString(units));
         rgParams.put("currency", mCurrency);
 
         try {

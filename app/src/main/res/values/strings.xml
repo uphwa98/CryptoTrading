@@ -14,4 +14,28 @@
         <item>ETC</item>
         <item>BTG</item>
     </string-array>
+
+    <string-array name="sell_array">
+        <item>0.01</item>
+        <item>0.05</item>
+        <item>0.1</item>
+        <item>0.5</item>
+        <item>1</item>
+        <item>5</item>
+        <item>10</item>
+        <item>20</item>
+        <item>all</item>
+    </string-array>
+
+    <string-array name="buy_array">
+        <item>0.01</item>
+        <item>0.05</item>
+        <item>0.1</item>
+        <item>0.5</item>
+        <item>1</item>
+        <item>5</item>
+        <item>10</item>
+        <item>20</item>
+        <item>50</item>
+    </string-array>
 </resources>

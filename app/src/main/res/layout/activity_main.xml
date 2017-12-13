@@ -107,7 +107,7 @@
         android:layout_marginStart="8dp"
         android:background="@drawable/xml_border"
         android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/button8"
+        app:layout_constraintBottom_toTopOf="@+id/button14"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -118,7 +118,7 @@
         android:layout_marginStart="15dp"
         android:background="@drawable/xml_border"
         android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/button8"
+        app:layout_constraintBottom_toTopOf="@+id/button14"
         app:layout_constraintStart_toEndOf="@+id/textView2" />
 
     <Button
@@ -127,17 +127,16 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
         android:layout_marginStart="4dp"
-        android:text="Sell 0.01"
+        android:text="Sell"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/button8"
-        android:layout_width="0dp"
+    <Spinner
+        android:id="@+id/sell_spinner"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
         android:layout_marginStart="4dp"
-        android:text="Sell all"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/button14" />
 
@@ -146,18 +145,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
-        android:layout_marginStart="4dp"
-        android:text="Buy 0.01"
+        android:layout_marginStart="8dp"
+        android:text="Buy"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button8" />
+        app:layout_constraintStart_toEndOf="@+id/sell_spinner" />
 
-    <Button
-        android:id="@+id/button15"
+    <Spinner
+        android:id="@+id/buy_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
         android:layout_marginStart="4dp"
-        android:text="Buy 0.1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/button12" />
+
 </android.support.constraint.ConstraintLayout>

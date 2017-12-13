@@ -39,12 +39,13 @@ public class MainActivity extends Activity implements SellNowDialogFragment.Noti
     private Button mButtonStart;
     private Button mButtonStop;
     private Button mSellNow;
-    private Button mSellPart;
     private Button mBuyNow;
     private Button mOrderbook;
     private CheckBox mNoPopupCheckBox;
 
     private String mCurrency = "BTC";
+    private float mSellUnit = 0.01F;
+    private float mBuyUnit = 0.01F;
 
     private boolean mIsBoundByStart; // bound by START button
 
@@ -66,6 +67,20 @@ public class MainActivity extends Activity implements SellNowDialogFragment.Noti
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
+
+        Spinner sell_spinner = findViewById(R.id.sell_spinner);
+        ArrayAdapter<CharSequence> sellAdapter = ArrayAdapter.createFromResource(this,
+                R.array.sell_array, android.R.layout.simple_spinner_item);
+        sellAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sell_spinner.setAdapter(sellAdapter);
+        sell_spinner.setOnItemSelectedListener(this);
+
+        Spinner buy_spinner = findViewById(R.id.buy_spinner);
+        ArrayAdapter<CharSequence> buyAdapter = ArrayAdapter.createFromResource(this,
+                R.array.buy_array, android.R.layout.simple_spinner_item);
+        buyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        buy_spinner.setAdapter(buyAdapter);
+        buy_spinner.setOnItemSelectedListener(this);
 
         mNoPopupCheckBox = findViewById(R.id.checkBox);
         mNoPopupCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -151,21 +166,11 @@ public class MainActivity extends Activity implements SellNowDialogFragment.Noti
             }
         });
 
-        mSellNow = findViewById(R.id.button8);
+        mSellNow = findViewById(R.id.button14);
         mSellNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 new SellNowDialogFragment().show(getFragmentManager(), "sell_now");
-            }
-        });
-
-        mSellPart = findViewById(R.id.button14);
-        mSellPart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mIsBound) {
-                    mBoundService.sellNow(0.01001F);
-                }
             }
         });
 
@@ -213,9 +218,6 @@ public class MainActivity extends Activity implements SellNowDialogFragment.Noti
             mBoundService.setMainHandler(mUiHandler);
 
             mNoPopupCheckBox.setChecked(mBoundService.getSellWithOutConfirm());
-
-            String tradeUnitStr = Float.toString(Util.getTradingUnit(mCurrency));
-            mBuyNow.setText("Buy " + tradeUnitStr);
 
             if (mIsBoundByStart) {
                 mBoundService.start(mCurrency);
@@ -265,12 +267,12 @@ public class MainActivity extends Activity implements SellNowDialogFragment.Noti
         if (dialog instanceof BuyNowDialogFragment) {
             Log.v(TAG, "buy now ok");
             if (mIsBound) {
-                mBoundService.buyNow();
+                mBoundService.buyNow(mBuyUnit);
             }
         } else {
             Log.v(TAG, "sell now ok");
             if (mIsBound) {
-                mBoundService.sellNow(0);
+                mBoundService.sellNow(mSellUnit);
             }
         }
     }
@@ -285,21 +287,23 @@ public class MainActivity extends Activity implements SellNowDialogFragment.Noti
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long l) {
-        String newCurrency = (String)parent.getItemAtPosition(pos);
-        Log.v(TAG, "onItemSelected : " + newCurrency);
+        String selectedItem = (String) parent.getItemAtPosition(pos);
+        Log.v(TAG, "onItemSelected : " + selectedItem);
 
-        // comment temporarily
-//        if (newCurrency.equals(mCurrency)) {
-//            Log.v(TAG, "Nothing to do");
-//            return;
-//        }
-//
-        mCurrency = newCurrency;
-//
-//        if (mIsBound) {
-//            mBoundService.stop();
-//            mBoundService.start(mCurrency);
-//        }
+        int id = parent.getId();
+        if (id == R.id.currency_spinner) {
+            mCurrency = selectedItem;
+        } else if (id == R.id.sell_spinner) {
+            if ("all".equals(selectedItem)) {
+                mSellUnit = 0f;
+            } else {
+                mSellUnit = Float.valueOf(selectedItem);
+            }
+            Log.v(TAG, "sell unit : " + mSellUnit);
+        } else if (id == R.id.buy_spinner) {
+            mBuyUnit = Float.valueOf(selectedItem);
+            Log.v(TAG, "buy unit : " + mBuyUnit);
+        }
     }
 
     @Override
