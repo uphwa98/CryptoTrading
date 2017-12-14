@@ -206,10 +206,12 @@ public class MyTrade {
 
     private String sellNow(final String reqCurrency, final float units) {
         final HashMap<String, String> rgParams = new HashMap<>();
-        DecimalFormat format = new DecimalFormat(".#####");
-        String str = format.format(units);
 
-        rgParams.put("units", str.substring(0, 5));
+        float floorUnits = (float)Math.floor(units * 10000) / 10000;
+        String unitsParam = Float.toString(floorUnits);
+        Log.v(TAG, "sell units : " + unitsParam);
+
+        rgParams.put("units", unitsParam);
         rgParams.put("currency", reqCurrency);
 
         try {
