@@ -317,7 +317,10 @@ public class LocalService extends Service {
                 int length = bids.length();
                 for (int i = 0; i < 5; i++) {
 //                    Log.v(TAG, "bids " + i + " " + bids.getString(i));
-                    sbBuy.append(bids.getJSONObject(i).getString("quantity") + " : " + bids.getJSONObject(i).getString("price"));
+                    String quantity = bids.getJSONObject(i).getString("quantity");
+                    String price = bids.getJSONObject(i).getString("price");
+                    String formattedString = String.format("%.4f : %,d", Float.valueOf(quantity), Integer.valueOf(price));
+                    sbBuy.append(formattedString);
                     sbBuy.append("\n");
                 }
 
@@ -325,7 +328,10 @@ public class LocalService extends Service {
                 length = asks.length();
                 for (int i = 0; i < 5; i++) {
 //                    Log.v(TAG, "asks " + i + " " + asks.getString(i));
-                    sbSell.append(asks.getJSONObject(i).getString("quantity") + " : " + asks.getJSONObject(i).getString("price"));
+                    String quantity = asks.getJSONObject(i).getString("quantity");
+                    String price = asks.getJSONObject(i).getString("price");
+                    String formattedString = String.format("%.4f : %,d", Float.valueOf(quantity), Integer.valueOf(price));
+                    sbSell.append(formattedString);
                     sbSell.append("\n");
                 }
             } else {
