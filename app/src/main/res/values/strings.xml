@@ -12,6 +12,11 @@
         <item>BCH</item>
         <item>LTC</item>
         <item>ETC</item>
+        <item>QTUM</item>
+        <item>XRP</item>
+        <item>EOS</item>
+        <item>ZEC</item>
+        <item>XMR</item>
         <item>BTG</item>
     </string-array>
 
