@@ -130,6 +130,32 @@ public class MyTrade {
         }
     }
 
+    public String buyWithPrice(float units, String price) {
+        final HashMap<String, String> rgParams = new HashMap<>();
+
+        rgParams.put("price", price);
+        rgParams.put("units", Float.toString(units));
+        rgParams.put("order_currency", mCurrency);
+        rgParams.put("Payment_currency", "KRW");
+        rgParams.put("type", "bid");
+
+        try {
+            String result = mApi.callApi("/trade/place", rgParams);
+            JSONObject json = new JSONObject(result);
+            Log.v(TAG, "buy result : " + json);
+            String status = json.getString("status");
+            if ("0000".equals(status)) {
+                mTotalBalance = getMyBalance(mCurrency);
+                return "buy OK";
+            } else {
+                return json.getString("message");
+            }
+        } catch (Exception e) {
+            Log.d(TAG, "failed : " + e.getMessage());
+            return "Exception";
+        }
+    }
+
     public String getAccountBalance() {
         HashMap<String, String> rgParams = new HashMap<>();
         rgParams.put("currency", mCurrency);

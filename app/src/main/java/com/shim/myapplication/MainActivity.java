@@ -174,15 +174,15 @@ public class MainActivity extends Activity implements SellNowDialogFragment.Noti
             }
         });
 
-//        mOrderbook = findViewById(R.id.button);
-//        mOrderbook.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if (mIsBound) {
-//                    mBoundService.getOrderbook(callback);
-//                }
-//            }
-//        });
+        mOrderbook = findViewById(R.id.button);
+        mOrderbook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mIsBound) {
+                    mBoundService.buyWithPrice(mBuyUnit);
+                }
+            }
+        });
 
         mAppContext.startService(new Intent(mAppContext, LocalService.class));
 

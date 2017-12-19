@@ -26,6 +26,7 @@ public class LocalService extends Service {
     private final int CMD_BUY_NOW = 2;
     private final int CMD_SELL_NOW = 3;
     private final int CMD_GET_ORDERBOOK = 4;
+    private final int CMD_BUY_PRICE = 5;
 
     private MyTrade mMyTrade;
     private Handler mMainHandler;
@@ -41,6 +42,8 @@ public class LocalService extends Service {
     private boolean mSellWithoutConfirm;
 
     private INotifyOrderbook mOrderbookResult;
+
+    private String mFirstBuyingPrice;
 
     private final IBinder mBinder = new LocalBinder();
 
@@ -220,6 +223,15 @@ public class LocalService extends Service {
                                 mThreadHandler.sendEmptyMessageDelayed(CMD_RUN_LOOP, 2000L);
                             }
                             break;
+                        case CMD_BUY_PRICE:
+                            if (mMyTrade != null) {
+                                float units = (float)msg.obj;
+                                String buyResult = mMyTrade.buyWithPrice(units, mFirstBuyingPrice);
+                                printLog("buy : " + buyResult);
+
+                                mThreadHandler.sendEmptyMessageDelayed(CMD_RUN_LOOP, 2000L);
+                            }
+                            break;
                         case CMD_SELL_NOW:
                             if (mMyTrade != null) {
                                 float units = (float)msg.obj;
@@ -278,6 +290,17 @@ public class LocalService extends Service {
         }
     }
 
+    public void buyWithPrice(float unit) {
+        if (mThreadHandler != null) {
+            mThreadHandler.removeMessages(CMD_RUN_LOOP);
+
+            Message msg = Message.obtain();
+            msg.what = CMD_BUY_PRICE;
+            msg.obj = unit;
+            mThreadHandler.sendMessage(msg);
+        }
+    }
+
     public void sellNow(float unit) {
         if (mThreadHandler != null) {
             mThreadHandler.removeMessages(CMD_RUN_LOOP);
@@ -322,6 +345,10 @@ public class LocalService extends Service {
                     String formattedString = String.format("%.4f : %,d", Float.valueOf(quantity), Integer.valueOf(price));
                     sbBuy.append(formattedString);
                     sbBuy.append("\n");
+
+                    if (i == 0) {
+                        mFirstBuyingPrice = price;
+                    }
                 }
 
                 JSONArray asks = data.getJSONArray("asks");
